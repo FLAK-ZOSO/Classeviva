@@ -154,4 +154,5 @@ cython_debug/
 
 # Others
 .github/
+.gitignore
 test.py
