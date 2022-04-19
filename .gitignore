@@ -157,4 +157,3 @@ cython_debug/
 .github/LICENSE
 .github/.gitattributes
 test.py
-variables.py
