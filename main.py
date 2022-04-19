@@ -52,7 +52,7 @@ class Session:
 
     @property
     def time_left(self) -> int:
-        return 30*60 - (datetime.now() - self.start_time).seconds
+        return 60*60 - (datetime.now() - self.start_time).seconds
 
     def __del__(self) -> None:
         self.driver.close()
