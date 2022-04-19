@@ -156,3 +156,4 @@ cython_debug/
 .github/README.md
 .github/LICENSE
 .github/.gitattributes
+test.py
