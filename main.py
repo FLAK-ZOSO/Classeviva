@@ -30,11 +30,12 @@ class User:
 
 
 class Session:
-    def __init__(self, user: str, password: str, chromedriver_path: str=r"C:\Chromedriver\chromedriver.exe", role: str=Roles.STUDENT) -> None:
+    def __init__(self, user: str, password: str, chromedriver_path: str=r"C:\Chromedriver\chromedriver.exe", role: str=Roles.STUDENT, hidden: bool=False) -> None:
         self.user = User(user, password, self, role)
         try:
             chrome_options = Options()
-            chrome_options.add_argument("--headless")
+            if (hidden):
+                chrome_options.add_argument("--headless")
             chrome_options.add_argument("--window-size=1920x1080")
             chrome_options.add_argument("--log-level=3")
             self.driver = webdriver.Chrome(chromedriver_path, chrome_options=chrome_options)
