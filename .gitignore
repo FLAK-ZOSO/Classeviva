@@ -154,3 +154,5 @@ cython_debug/
 
 # Others
 .github/README.md
+.github/LICENSE
+.github/.gitattributes
