@@ -25,8 +25,8 @@ class User:
         self.session.driver.get(previous_link)
         return schoolpass_
 
-    def __str__(self):
-        return self.name
+    def __str__(self) -> str:
+        return f"{self.name} | {self.password} | {self.schoolpass}"
 
 
 class Session:
@@ -51,10 +51,10 @@ class Session:
 
     @property
     def time_left(self) -> int:
-        return (datetime.now() - self.start_time).seconds
+        return 30*60 - (datetime.now() - self.start_time).seconds
 
     def __del__(self) -> None:
         self.driver.close()
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"User: {self.user}\nTime-left: {self.time_left}s"
