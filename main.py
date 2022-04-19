@@ -26,17 +26,14 @@ class User:
 
 
 class Session:
-    def __init__(self, user: str, password: str, chromedriver_path: str='') -> None:
+    def __init__(self, user: str, password: str, chromedriver_path: str=r"C:\Chromedriver\chromedriver.exe") -> None:
         self.user = User(user, password, self)
         try:
             chrome_options = Options()
             chrome_options.add_argument("--headless")
             chrome_options.add_argument("--window-size=1920x1080")
             chrome_options.add_argument("--log-level=3")
-            if (chromedriver_path):
-                self.driver = webdriver.Chrome(chromedriver_path, chrome_options=chrome_options)
-            else:
-                self.driver = webdriver.Chrome(executable_path=r"C:\Chromedriver\chromedriver.exe", chrome_options=chrome_options)
+            self.driver = webdriver.Chrome(chromedriver_path, chrome_options=chrome_options)
         except WebDriverException:
             print("ChromeDriver not found. Please download it from https://chromedriver.chromium.org/downloads")
 
