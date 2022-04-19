@@ -4,16 +4,20 @@ import paths
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import WebDriverException
+from variables import *
 
 
 class User:
-    def __init__(self, name: str, password: str, session: Session) -> None:
+    def __init__(self, name: str, password: str, session: Session, role=Roles.STUDENT) -> None:
         self.name = name
         self.password = password
         self.session = session
+        self.role = role
 
     @property
     def schoolpass(self) -> int:
+        if (self.role): # If it's not a student
+            return 0
         previous_link = self.session.driver.current_url
         self.session.driver.get(paths.main_page_url)
         element = self.session.driver.find_element_by_xpath("/html/body/div[4]/table/tbody/tr[5]/td[3]/a/div/div")
@@ -26,8 +30,8 @@ class User:
 
 
 class Session:
-    def __init__(self, user: str, password: str, chromedriver_path: str=r"C:\Chromedriver\chromedriver.exe") -> None:
-        self.user = User(user, password, self)
+    def __init__(self, user: str, password: str, chromedriver_path: str=r"C:\Chromedriver\chromedriver.exe", role: str=Roles.STUDENT) -> None:
+        self.user = User(user, password, self, role)
         try:
             chrome_options = Options()
             chrome_options.add_argument("--headless")
