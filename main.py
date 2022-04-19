@@ -2,7 +2,9 @@ from __future__ import annotations
 from datetime import datetime
 import paths
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.remote.webelement import WebElement
 from selenium.common.exceptions import WebDriverException
 from variables import *
 
@@ -20,7 +22,7 @@ class User:
             return 0
         previous_link = self.session.driver.current_url
         self.session.driver.get(paths.main_page_url)
-        element = self.session.driver.find_element_by_xpath("/html/body/div[4]/table/tbody/tr[5]/td[3]/a/div/div")
+        element = self.session.driver.find_element_by_xpath(paths.schoolpass_div)
         schoolpass_ = int(element.text)
         self.session.driver.get(previous_link)
         return schoolpass_
@@ -54,8 +56,36 @@ class Session:
     def time_left(self) -> int:
         return 60*60 - (datetime.now() - self.start_time).seconds
 
-    def __del__(self) -> None:
-        self.driver.close()
-
     def __str__(self) -> str:
         return f"User: {self.user}\nTime-left: {self.time_left}s"
+
+
+class Valutazioni:
+    def __init__(self, session: Session) -> None:
+        self.session = session
+        self.driver = session.driver
+        self.user = session.user
+
+    def start(self) -> None:
+        self.driver.get(paths.valutazioni_url)
+
+    @property
+    def subjects(self) -> list[str]:
+        return [element.text for element in self.driver.find_elements_by_xpath(paths.subjects_tds)]
+
+    @property
+    def marks(self) -> dict[str, list[dict[str, float | str]]]:
+        result: dict[str, dict[str, list[float] | str]] = {}
+        trs = self.driver.find_elements_by_xpath(paths.trs)
+        for tr in trs:
+            if (tr.get_property("valign") == "middle"):
+                last_subject = tr.find_element(By.TAG_NAME, "td").text
+                result[last_subject] = []
+            else:
+                tds: list[WebElement] = tr.find_elements_by_tag_name("td")
+                date: str = tds[1].text
+                mark: str = tds[2].find_element(By.TAG_NAME, "div").find_element(By.TAG_NAME, "p").text
+                type: str = tds[3].find_element(By.TAG_NAME, "p").find_element(By.TAG_NAME, "span").text
+                mark = float(mark.replace('½', '.5'))
+                result[last_subject].append({"date": date, "mark": mark, "type": type})
+        return result
