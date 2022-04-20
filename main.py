@@ -74,8 +74,8 @@ class Valutazioni:
         return [element.text for element in self.driver.find_elements(By.XPATH, paths.subjects_tds)]
 
     @property
-    def last_ten_marks(self) -> dict[str, list[dict[str, float | str]]]:
-        result: dict[str, dict[str, list[float] | str]] = {}
+    def last_ten_marks(self) -> dict[str, list[tuple[str, float | str, str]]]:
+        result: dict[str, list[tuple[str, float | str, str]]] = {}
         trs = self.driver.find_elements(By.XPATH, paths.trs)
         b = False # True if the current tr is after the first subject
         for tr in trs:
@@ -91,11 +91,8 @@ class Valutazioni:
                 tds: list[WebElement] = tr.find_elements(By.TAG_NAME, "td")
                 date: str = tds[1].find_element(By.TAG_NAME, "p").text
                 mark: str = tds[2].find_elements(By.TAG_NAME, "div")[0].find_element(By.TAG_NAME, "p").text
-                type: str = tds[3].find_element(By.TAG_NAME, "p").get_attribute("title")
-                mark = float(mark.replace('½', '.5')) if (not (any(sym in mark for sym in {'+', '-'}) or mark == 'g')) else mark
-                result[last_subject].append({
-                    "date": date,
-                    "mark": mark,
-                    "type": type
-                })
+                type_: str = tds[3].find_element(By.TAG_NAME, "p").get_attribute("title")
+                if (not (any(sym in mark for sym in {'+', '-'}) or mark == 'g')):
+                    mark = float(mark.replace('½', '.5'))
+                result[last_subject].append((date, mark, type_))
         return result
