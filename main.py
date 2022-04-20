@@ -22,7 +22,7 @@ class User:
             return 0
         previous_link = self.session.driver.current_url
         self.session.driver.get(paths.main_page_url)
-        element = self.session.driver.find_element_by_xpath(paths.schoolpass_div)
+        element = self.session.driver.find_element(By.XPATH, paths.schoolpass_div)
         schoolpass_ = int(element.text)
         self.session.driver.get(previous_link)
         return schoolpass_
@@ -46,9 +46,9 @@ class Session:
 
     def login(self) -> bool:
         self.driver.get(paths.login_url)
-        self.driver.find_element_by_xpath(paths.code_input).send_keys(self.user.name)
-        self.driver.find_element_by_xpath(paths.password_input).send_keys(self.user.password)
-        self.driver.find_element_by_xpath(paths.login_button).click()
+        self.driver.find_element(By.XPATH, paths.code_input).send_keys(self.user.name)
+        self.driver.find_element(By.XPATH, paths.password_input).send_keys(self.user.password)
+        self.driver.find_element(By.XPATH, paths.login_button).click()
         self.start_time = datetime.now()
         print(self)
 
@@ -71,21 +71,31 @@ class Valutazioni:
 
     @property
     def subjects(self) -> list[str]:
-        return [element.text for element in self.driver.find_elements_by_xpath(paths.subjects_tds)]
+        return [element.text for element in self.driver.find_elements(By.XPATH, paths.subjects_tds)]
 
     @property
-    def marks(self) -> dict[str, list[dict[str, float | str]]]:
+    def last_ten_marks(self) -> dict[str, list[dict[str, float | str]]]:
         result: dict[str, dict[str, list[float] | str]] = {}
-        trs = self.driver.find_elements_by_xpath(paths.trs)
+        trs = self.driver.find_elements(By.XPATH, paths.trs)
+        b = False # True if the current tr is after the first subject
         for tr in trs:
-            if (tr.get_property("valign") == "middle"):
+            if (tr.get_attribute("class") == "griglia"):
+                b = True
+                continue
+            if (not b):
+                continue
+            if (tr.get_attribute("align") == "center"):
                 last_subject = tr.find_element(By.TAG_NAME, "td").text
                 result[last_subject] = []
             else:
-                tds: list[WebElement] = tr.find_elements_by_tag_name("td")
-                date: str = tds[1].text
-                mark: str = tds[2].find_element(By.TAG_NAME, "div").find_element(By.TAG_NAME, "p").text
-                type: str = tds[3].find_element(By.TAG_NAME, "p").find_element(By.TAG_NAME, "span").text
-                mark = float(mark.replace('½', '.5'))
-                result[last_subject].append({"date": date, "mark": mark, "type": type})
+                tds: list[WebElement] = tr.find_elements(By.TAG_NAME, "td")
+                date: str = tds[1].find_element(By.TAG_NAME, "p").text
+                mark: str = tds[2].find_elements(By.TAG_NAME, "div")[0].find_element(By.TAG_NAME, "p").text
+                type: str = tds[3].find_element(By.TAG_NAME, "p").get_attribute("title")
+                mark = float(mark.replace('½', '.5')) if (not (any(sym in mark for sym in {'+', '-'}) or mark == 'g')) else mark
+                result[last_subject].append({
+                    "date": date,
+                    "mark": mark,
+                    "type": type
+                })
         return result
