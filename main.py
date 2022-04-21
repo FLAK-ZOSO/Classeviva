@@ -98,7 +98,7 @@ class Valutazioni:
                     result.append(mark)
         return result
 
-    def get_valutations(self, opt_date: bool=True, opt_type: bool=True, opt_description: bool=True) -> list[tuple[str, str, float | str, str, str]]:
+    def get_valutations(self, date: bool=True, type_: bool=True, notes: bool=True) -> list[tuple[str, str, float | str, str, str]]:
         self.driver.get(paths.valutazioni_note_url)
         result: list[tuple[str, str, float | str, str, str]] = []
         trs = self.driver.find_elements(By.XPATH, paths.trs)
@@ -117,19 +117,16 @@ class Valutazioni:
                 if (not (any(sym in mark for sym in {'+', '-'}) or mark == 'g')):
                     mark = float(mark.replace('½', '.5'))
                 res = [last_subject, mark]
-                if (opt_date):
-                    date: str = tds[1].find_element(By.TAG_NAME, "p").text
-                    res.append(date)
-                if (opt_type):
-                    type_: str = tds[3].find_element(By.TAG_NAME, "p").get_attribute("title")
-                    res.append(type_)
-                if (opt_description):
-                    description: str = tds[5].find_element(By.TAG_NAME, "div").find_element(By.TAG_NAME, "span").text
-                    res.append(description)
+                if (date):
+                    res.append(tds[1].find_element(By.TAG_NAME, "p").text)
+                if (type_):
+                    res.append(tds[3].find_element(By.TAG_NAME, "p").get_attribute("title"))
+                if (notes):
+                    res.append(tds[5].find_element(By.TAG_NAME, "div").find_element(By.TAG_NAME, "span").text)
                 result.append(tuple(res))
         return result
 
-    def get_valutations_by_subject(self, opt_date: bool=True, opt_type: bool=True, opt_description: bool=True) -> dict[str, list[tuple]]:
+    def get_valutations_by_subject(self, date: bool=True, type_: bool=True, notes: bool=True) -> dict[str, list[tuple]]:
         self.driver.get(paths.valutazioni_note_url)
         result: dict[str, list[tuple[str, float | str, str, str]]] = {}
         trs = self.driver.find_elements(By.XPATH, paths.trs)
@@ -149,14 +146,11 @@ class Valutazioni:
                     mark = float(mark.replace('½', '.5'))
                 res = [last_subject, mark]
                 tds: list[WebElement] = tr.find_elements(By.TAG_NAME, "td")
-                if (opt_date):
-                    date: str = tds[1].find_element(By.TAG_NAME, "p").text
-                    res.append(date)
-                if (opt_type):
-                    type_: str = tds[3].find_element(By.TAG_NAME, "p").get_attribute("title")
-                    res.append(type_)
-                if (opt_description):
-                    description: str = tds[5].find_element(By.TAG_NAME, "div").find_element(By.TAG_NAME, "span").text
-                    res.append(description)
+                if (date):
+                    res.append(tds[1].find_element(By.TAG_NAME, "p").text)
+                if (type_):
+                    res.append(tds[3].find_element(By.TAG_NAME, "p").get_attribute("title"))
+                if (notes):
+                    res.append(tds[5].find_element(By.TAG_NAME, "div").find_element(By.TAG_NAME, "span").text)
                 result[last_subject].append(tuple(res))
         return result
