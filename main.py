@@ -162,3 +162,19 @@ class Valutazioni(Window):
 class Note(Window):
     def __init__(self, session: Session) -> None:
         super().__init__(session)
+
+    @property
+    def lenght(self) -> int:
+        if (self.driver.current_url != paths.note_url):
+            self.driver.get(paths.note_url)
+        # Select 40 notes for page
+        self.driver.find_element(By.XPATH, paths.note_option.format(4)).click()
+        # Count the pages
+        pages: str = self.driver.find_element(By.XPATH, paths.pages_input).get_attribute("value")
+        pages = int(pages.split('/')[1])
+        counter: int = (pages-1)*40
+        # Go to the last page
+        self.driver.find_element(By.XPATH, paths.last_img).click()
+        # Coutn the notes of the last page
+        counter += len(self.driver.find_elements(By.XPATH, paths.nota_trs))
+        return counter
