@@ -20,11 +20,9 @@ class User:
     def schoolpass(self) -> int:
         if (self.role): # If it's not a student
             return 0
-        previous_link = self.session.driver.current_url
         self.session.driver.get(paths.main_page_url)
         element = self.session.driver.find_element(By.XPATH, paths.schoolpass_div)
         schoolpass_ = int(element.text)
-        self.session.driver.get(previous_link)
         return schoolpass_
 
     def __str__(self) -> str:
@@ -60,24 +58,27 @@ class Session:
         return f"User: {self.user}\nTime-left: {self.time_left}s"
 
 
-class Valutazioni:
+class Window:
     def __init__(self, session: Session) -> None:
         self.session = session
-        self.driver = session.driver
+        self.driver: webdriver.Chrome = session.driver
         self.user = session.user
 
-    def start(self) -> None:
-        self.driver.get(paths.valutazioni_voti_url)
+
+class Valutazioni(Window):
+    def __init__(self, session: Session) -> None:
+        super().__init__(session)
 
     @property
     def subjects(self) -> list[str]:
-        self.driver.get(paths.valutazioni_note_url)
+        if (self.driver.current_url != paths.valutazioni_note_url):
+            self.driver.get(paths.valutazioni_note_url)
         return [element.text for element in self.driver.find_elements(By.XPATH, paths.subjects_tds)]
 
     def get_valutations_marks(self, first_period: bool=True, second_period: bool=True) -> list[float | str]:
-        self.driver.get(paths.valutazioni_voti_url)
         result: list[float | str] = []
         if (first_period):
+            self.driver.get(f"{paths.valutazioni_voti_url}#S1")
             for p in self.driver.find_elements(By.XPATH, paths.marks):
                 mark: str = p.text
                 if (not mark):
@@ -87,7 +88,7 @@ class Valutazioni:
                 except ValueError:
                     result.append(mark)
         if (second_period):
-            self.driver.get(f"{paths.valutazioni_note_url}#S3")
+            self.driver.get(f"{paths.valutazioni_voti_url}#S3")
             for p in self.driver.find_elements(By.XPATH, paths.marks):
                 mark: str = p.text
                 if (not mark):
@@ -99,7 +100,8 @@ class Valutazioni:
         return result
 
     def get_valutations(self, date: bool=True, type_: bool=True, notes: bool=True) -> list[tuple[str, str, float | str, str, str]]:
-        self.driver.get(paths.valutazioni_note_url)
+        if (self.driver.current_url != paths.valutazioni_note_url):
+            self.driver.get(paths.valutazioni_note_url)
         result: list[tuple[str, str, float | str, str, str]] = []
         trs = self.driver.find_elements(By.XPATH, paths.trs)
         b = False # True if the current tr is after the first subject
@@ -127,7 +129,8 @@ class Valutazioni:
         return result
 
     def get_valutations_by_subject(self, date: bool=True, type_: bool=True, notes: bool=True) -> dict[str, list[tuple]]:
-        self.driver.get(paths.valutazioni_note_url)
+        if (self.driver.current_url != paths.valutazioni_note_url):
+            self.driver.get(paths.valutazioni_note_url)
         result: dict[str, list[tuple[str, float | str, str, str]]] = {}
         trs = self.driver.find_elements(By.XPATH, paths.trs)
         b = False # True if the current tr is after the first subject
@@ -154,3 +157,8 @@ class Valutazioni:
                     res.append(tds[5].find_element(By.TAG_NAME, "div").find_element(By.TAG_NAME, "span").text)
                 result[last_subject].append(tuple(res))
         return result
+
+
+class Note(Window):
+    def __init__(self, session: Session) -> None:
+        super().__init__(session)
