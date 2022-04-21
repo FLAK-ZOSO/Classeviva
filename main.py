@@ -178,3 +178,19 @@ class Note(Window):
         # Coutn the notes of the last page
         counter += len(self.driver.find_elements(By.XPATH, paths.nota_trs))
         return counter
+
+    def get_notes(self, teacher: bool=True, date: bool=True, type_: bool=True) -> list[tuple[str, str, str, str] | tuple[str, str, str] | tuple[str, str] | tuple[str]]:
+        if (self.driver.current_url != paths.note_url):
+            self.driver.get(paths.note_url)
+        result: list[tuple[str, str, str, str] | tuple[str, str, str] | tuple[str, str] | tuple[str]] = []
+        for tr in self.driver.find_elements(By.XPATH, paths.nota_trs):
+            tds: list[WebElement] = tr.find_elements(By.TAG_NAME, "td")
+            res = [tds[2].text]
+            if (teacher):
+                res.append(tds[0].text)
+            if (date):
+                res.append(tds[1].text)
+            if (type_):
+                res.append(tds[3].text)
+            result.append(tuple(res))
+        return result
