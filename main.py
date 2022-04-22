@@ -18,8 +18,6 @@ class User:
 
     @property
     def schoolpass(self) -> int:
-        if (self.role): # If it's not a student
-            return 0
         self.session.driver.get(paths.main_page_url)
         element = self.session.driver.find_element(By.XPATH, paths.schoolpass_div)
         schoolpass_ = int(element.text)
@@ -179,9 +177,13 @@ class Note(Window):
         counter += len(self.driver.find_elements(By.XPATH, paths.nota_trs))
         return counter
 
-    def get_notes(self, teacher: bool=True, date: bool=True, type_: bool=True) -> list[tuple[str, str, str, str] | tuple[str, str, str] | tuple[str, str] | tuple[str]]:
+    def get_notes(self, sort: int=NoteSortBy.AUTHOR, teacher: bool=True, date: bool=True, type_: bool=True) -> list[tuple[str, str, str, str] | tuple[str, str, str] | tuple[str, str] | tuple[str]]:
         if (self.driver.current_url != paths.note_url):
             self.driver.get(paths.note_url)
+        # Select the specified sorting
+        tr: WebElement = self.driver.find_element(By.XPATH, paths.order_tr)
+        tr.find_elements(By.TAG_NAME, "th")[sort].click()
+        # Get the notes
         result: list[tuple[str, str, str, str] | tuple[str, str, str] | tuple[str, str] | tuple[str]] = []
         for tr in self.driver.find_elements(By.XPATH, paths.nota_trs):
             tds: list[WebElement] = tr.find_elements(By.TAG_NAME, "td")
