@@ -9,3 +9,8 @@ class NoteSortBy:
     DATE = 1
     NOTE = 2
     TYPE = 3
+
+
+class RegistroStatus:
+    PRESENTE = 0
+    ASSENTE = 1
