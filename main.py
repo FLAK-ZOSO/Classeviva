@@ -234,6 +234,11 @@ class Registro(Finestra):
     @property
     def day_date(self) -> Registro.Date:
         return Registro.Date.from_str(self.day)
+
+    def _select_date(self, date: Registro.Date) -> None:
+        if (self.driver.current_url != paths.registro_url):
+            self.driver.get(paths.registro_url)
+        # Select the specified date with the calendar
     
     status_str: dict[str, int] = {
         'p': RegistroStatus.PRESENTE,
