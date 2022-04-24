@@ -253,3 +253,6 @@ class Registro(Finestra):
         if (not hour): # They want the status of the day
             status: WebElement = self.driver.find_element(By.XPATH, paths.status_p)
             return self.status_from_str(status.text.lower())
+        else: # They want the status of a specific hour
+            ... # TODO: Implement this
+            # The problem is caused by the fact that some hours come with groups of two or three
