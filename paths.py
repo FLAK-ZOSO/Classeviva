@@ -4,6 +4,7 @@ main_page_url = "https://web.spaggiari.eu/home/app/default/menu_webinfoschool_st
 valutazioni_note_url = "https://web.spaggiari.eu/cvv/app/default/genitori_note.php"
 valutazioni_voti_url = "https://web.spaggiari.eu/cvv/app/default/genitori_voti.php"
 note_url = "https://web.spaggiari.eu/fml/app/default/gioprof_note_studente.php"
+registro_url = "https://web.spaggiari.eu/fml/app/default/regclasse.php"
 
 # xPaths for login
 code_input = "/html/body/div/main/div[1]/div/div/form/div[1]/div[1]/input"
@@ -29,3 +30,7 @@ next_img = "/html/body/div[4]/div[1]/div/form/img[3]"
 last_img = "/html/body/div[4]/div[1]/div/form/img[4]"
 nota_trs = "/html/body/div[4]/div[1]/table[3]/tbody/tr"
 order_tr = "/html/body/div[4]/div[1]/table[3]/thead/tr"
+
+# xPaths for registro
+data_a = "/html/body/div[4]/div[1]/table[1]/tbody/tr[8]/td/span[4]/a"
+status_p = "/html/body/div[4]/div[1]/form/table/tbody/tr[2]/td[7]/a/div/p[1]"
