@@ -238,7 +238,10 @@ class Registro(Finestra):
     def _select_date(self, date: Registro.Date) -> None:
         if (self.driver.current_url != paths.registro_url):
             self.driver.get(paths.registro_url)
-        # Select the specified date with the calendar
+        # Click on the current date button
+        date_button: WebElement = self.driver.find_element(By.XPATH, paths.data_a)
+        date_button.click()
+        # Scroll to the wanted date
     
     status_str: dict[str, int] = {
         'p': RegistroStatus.PRESENTE,
