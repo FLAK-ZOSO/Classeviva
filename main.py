@@ -56,14 +56,14 @@ class Session:
         return f"User: {self.user}\nTime-left: {self.time_left}s"
 
 
-class Window:
+class Finestra:
     def __init__(self, session: Session) -> None:
         self.session = session
         self.driver: webdriver.Chrome = session.driver
         self.user = session.user
 
 
-class Valutazioni(Window):
+class Valutazioni(Finestra):
     def __init__(self, session: Session) -> None:
         super().__init__(session)
 
@@ -157,7 +157,7 @@ class Valutazioni(Window):
         return result
 
 
-class Note(Window):
+class Note(Finestra):
     def __init__(self, session: Session) -> None:
         super().__init__(session)
 
@@ -196,3 +196,60 @@ class Note(Window):
                 res.append(tds[3].text)
             result.append(tuple(res))
         return result
+
+
+class Registro(Finestra):
+    def __init__(self, session: Session) -> None:
+        super().__init__(session)
+
+
+    class Date:
+        week: tuple[str] = ('lunedì', 'martedì', 'mercoledì', 'giovedì', 'venerdì', 'sabato', 'domenica')
+        months: tuple[str] = ('gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre')
+
+        def __init__(self, weekday: int | str, day: int | str, month: int | str, year: int | str) -> None:
+            self.day = int(day)
+            self.weekday = self.int_from_weekday(weekday)
+            self.month = int(month)
+            self.year = int(year)
+
+        def int_from_weekday(weekday: str) -> int:
+            try:
+                return Registro.Date.week.index(weekday.lower()) + 1
+            except ValueError:
+                return 0
+
+        @classmethod
+        def from_str(cls, date: str) -> Registro.Date:
+            # SABATO 23 APRILE 2022
+            date = date.split()
+            return cls(date[0], date[1], date[2], date[3])
+
+    @property
+    def day(self) -> str:
+        if (self.driver.current_url != paths.registro_url):
+            self.driver.get(paths.registro_url)
+        return self.driver.find_element(By.XPATH, paths.data_a).text
+
+    @property
+    def day_date(self) -> Registro.Date:
+        return Registro.Date.from_str(self.day)
+    
+    status_str: dict[str, int] = {
+        'p': RegistroStatus.PRESENTE,
+        'a': RegistroStatus.ASSENTE,
+        'al': RegistroStatus.ASSENTE
+    }
+
+    def status_from_str(self, status: str) -> int:
+        try:
+            return Registro.status_str[status]
+        except KeyError:
+            return 0
+
+    def get_status(self, date: Registro.Date, hour: int=0) -> int:
+        if (self.driver.current_url != paths.registro_url):
+            self.driver.get(paths.registro_url)
+        if (not hour): # They want the status of the day
+            status: WebElement = self.driver.find_element(By.XPATH, paths.status_p)
+            return self.status_from_str(status.text.lower())
