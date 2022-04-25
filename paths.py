@@ -5,6 +5,7 @@ valutazioni_note_url = "https://web.spaggiari.eu/cvv/app/default/genitori_note.p
 valutazioni_voti_url = "https://web.spaggiari.eu/cvv/app/default/genitori_voti.php"
 note_url = "https://web.spaggiari.eu/fml/app/default/gioprof_note_studente.php"
 registro_url = "https://web.spaggiari.eu/fml/app/default/regclasse.php"
+registro_data_url = "https://web.spaggiari.eu/fml/app/default/regclasse.php?data_start={}"
 
 # xPaths for login
 code_input = "/html/body/div/main/div[1]/div/div/form/div[1]/div[1]/input"
