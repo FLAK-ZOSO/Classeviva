@@ -210,20 +210,35 @@ class Registro(Finestra):
         def __init__(self, weekday: int | str, day: int | str, month: int | str, year: int | str) -> None:
             self.day = int(day)
             self.weekday = self.int_from_weekday(weekday)
-            self.month = int(month)
+            self.str_weekday = weekday if (isinstance(weekday, str)) else self.week[weekday-1]
+            self.month = self.int_from_month(month)
+            self.str_month = month if (isinstance(month, str)) else self.month[month-1]
             self.year = int(year)
 
-        def int_from_weekday(weekday: str) -> int:
+        def int_from_weekday(self, weekday: str) -> int:
             try:
                 return Registro.Date.week.index(weekday.lower()) + 1
             except ValueError:
                 return 0
+
+        def int_from_month(self, month: str) -> int:
+            try:
+                return Registro.Date.months.index(month.lower()) + 1
+            except ValueError:
+                return 0
+
+        @property
+        def two_digits_month(self) -> str:
+            return str(self.month).zfill(2)
 
         @classmethod
         def from_str(cls, date: str) -> Registro.Date:
             # SABATO 23 APRILE 2022
             date = date.split()
             return cls(date[0], date[1], date[2], date[3])
+        
+        def __str__(self) -> str:
+            return f"{self.str_weekday} {self.day} {Registro.Date.months[self.month-1].upper()} {self.year}"
 
     @property
     def day(self) -> str:
@@ -236,12 +251,14 @@ class Registro(Finestra):
         return Registro.Date.from_str(self.day)
 
     def _select_date(self, date: Registro.Date) -> None:
-        if (self.driver.current_url != paths.registro_url):
-            self.driver.get(paths.registro_url)
+        # if (self.driver.current_url != paths.registro_url):
+        #    self.driver.get(paths.registro_url)
         # Click on the current date button
-        date_button: WebElement = self.driver.find_element(By.XPATH, paths.data_a)
-        date_button.click()
-        # Scroll to the wanted date
+        # date_button: WebElement = self.driver.find_element(By.XPATH, paths.data_a)
+        # date_button.click()
+        # Scroll to the wanted date (example: 2022-03-24)
+        url = paths.registro_data_url.format(f"{date.year}-{date.two_digits_month}-{date.day}")
+        self.driver.get(url)
     
     status_str: dict[str, int] = {
         'p': RegistroStatus.PRESENTE,
@@ -259,7 +276,7 @@ class Registro(Finestra):
         if (self.driver.current_url != paths.registro_url):
             self.driver.get(paths.registro_url)
         # Select the specified date
-        ...
+        self._select_date(date)
         # Get the status from the date
         if (not hour): # They want the status of the day
             status: WebElement = self.driver.find_element(By.XPATH, paths.status_p)
