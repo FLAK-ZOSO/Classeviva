@@ -267,9 +267,15 @@ class Registro(Finestra):
         except KeyError:
             return 0
 
+    def get_day_status(self, date: Registro.Date) -> int:
+        # Select the specified date
+        self._select_date(date)
+        # Get the status from the date
+        status: WebElement = self.driver.find_element(By.XPATH, paths.status_p)
+        status_: str = status.text
+        return self.status_from_str(status_.lower())
+
     def get_status(self, date: Registro.Date, hour: int=0) -> int:
-        if (self.driver.current_url != paths.registro_url):
-            self.driver.get(paths.registro_url)
         # Select the specified date
         self._select_date(date)
         # Get the status from the date
