@@ -35,3 +35,4 @@ order_tr = "/html/body/div[4]/div[1]/table[3]/thead/tr"
 # xPaths for registro
 data_a = "/html/body/div[4]/div[1]/table[1]/tbody/tr[8]/td/span[4]/a"
 status_p = "/html/body/div[4]/div[1]/form/table/tbody/tr[2]/td[7]/a/div/p[1]"
+lezioni_tbody = "/html/body/div[4]/div[1]/table[2]/tbody"
