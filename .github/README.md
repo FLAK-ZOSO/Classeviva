@@ -1,2 +1,2 @@
 # Classeviva
-API for Classeviva by GruppoSpaggiariParma
+Slow `API` for `Classeviva` by `GruppoSpaggiariParma`
