@@ -251,11 +251,6 @@ class Registro(Finestra):
         return Registro.Date.from_str(self.day)
 
     def _select_date(self, date: Registro.Date) -> None:
-        # if (self.driver.current_url != paths.registro_url):
-        #    self.driver.get(paths.registro_url)
-        # Click on the current date button
-        # date_button: WebElement = self.driver.find_element(By.XPATH, paths.data_a)
-        # date_button.click()
         # Scroll to the wanted date (example: 2022-03-24)
         url = paths.registro_data_url.format(f"{date.year}-{date.two_digits_month}-{date.day}")
         self.driver.get(url)
