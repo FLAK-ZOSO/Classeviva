@@ -1,5 +1,5 @@
-from distutils.core import setup
-setup(
+import setuptools
+setuptools.setup(
     name='classevivaAPI',
     packages=['classevivaAPI'],
     package_dir={'': 'src'},
@@ -10,5 +10,11 @@ setup(
     url='https://github.com/Lioydiano/Classeviva',
     download_url='https://github.com/Lioydiano/Classeviva/archive/refs/tags/v0.0.7.tar.gz',
     keywords=['classeviva', 'school', 'api'],
-    classifiers=[],
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent"
+    ],
+    python_requires=">=3.10",
+    packages=setuptools.find_packages(where="src")
 )
