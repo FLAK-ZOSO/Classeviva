@@ -294,6 +294,6 @@ class Registro(Finestra):
                     break
                 x += 1
             mainrow: WebElement = self.driver.find_element(By.XPATH, paths.lezioni_mainrow)
-            td: WebElement = mainrow.find_elements(By.TAG_NAME, "td")[x+9]
+            td: WebElement = mainrow.find_elements(By.TAG_NAME, "td")[x+8]
             div: WebElement = td.find_elements(By.TAG_NAME, "div")[1]
             return RegistroStatus.from_str(div.text)
