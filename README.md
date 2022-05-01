@@ -18,7 +18,7 @@ Your `YourFile.py` could be written as follows:
 
 ```python
 #!\usr\bin\env python3
-from main import *
+from classeviva import Session, Valutazioni, Note, NoteSortBy, Registro
 
 
 if __name__ == "__main__":
