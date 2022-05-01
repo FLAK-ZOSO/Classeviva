@@ -258,7 +258,8 @@ class Registro(Finestra):
     status_str: dict[str, int] = {
         'p': RegistroStatus.PRESENTE,
         'a': RegistroStatus.ASSENTE,
-        'al': RegistroStatus.ASSENTE
+        'al': RegistroStatus.ASSENTE,
+        'ap': RegistroStatus.ASSENTE,
     }
 
     def status_from_str(self, status: str) -> int:
