@@ -36,8 +36,11 @@ if __name__ == "__main__":
     print(n.lenght)
 
     r = Registro(s)
-    print(d := r.Date.from_str("SABATO 27 APRILE 2022"))
+    print(d := r.Date.from_str("SABATO 31 GENNAIO 2022"))
     print(r.get_day_status(d))
+    print(r.get_status(d, 1))
+    print(r.get_status(d, 2))
+    print(r.get_status(d, 5))
 ```
 
 A sample output may be the following:
