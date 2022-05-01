@@ -18,11 +18,5 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent"
     ],
-<<<<<<< Updated upstream
     python_requires=">=3.10"
-    # packages=setuptools.find_packages(where="src")
 )
-=======
-    python_requires=">=3.10",
-)
->>>>>>> Stashed changes
