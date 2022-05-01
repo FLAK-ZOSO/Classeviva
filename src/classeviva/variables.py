@@ -14,3 +14,13 @@ class NoteSortBy:
 class RegistroStatus:
     PRESENTE = 0
     ASSENTE = 1
+    
+    @classmethod
+    def from_str(cls, s: str) -> int:
+        try:
+            return {
+                'PL': cls.PRESENTE,
+                'AL': cls.ASSENTE
+            }[s.upper()]
+        except KeyError:
+            return 0
