@@ -2,7 +2,11 @@
 Slow `API` for `Classeviva` by `GruppoSpaggiariParma`
 
 # Download
-Since `Classeviva` still isn't available on `PyPI`, you must download the content of this repository file by file.
+`Classeviva` isn available on [`PyPI`](https://pypi.org/project/classevivaAPI/)
+
+```cmd
+$ python -m pip install classevivaAPI
+```
 
 # Tree
 ```
