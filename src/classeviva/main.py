@@ -236,7 +236,7 @@ class Registro(Finestra):
             # SABATO 23 APRILE 2022
             date = date.split()
             return cls(date[0], date[1], date[2], date[3])
-        
+
         def __str__(self) -> str:
             return f"{self.str_weekday} {self.day} {Registro.Date.months[self.month-1].upper()} {self.year}"
 
@@ -254,19 +254,6 @@ class Registro(Finestra):
         # Scroll to the wanted date (example: 2022-03-24)
         url = paths.registro_data_url.format(f"{date.year}-{date.two_digits_month}-{date.day}")
         self.driver.get(url)
-    
-    status_str: dict[str, int] = {
-        'p': RegistroStatus.PRESENTE,
-        'a': RegistroStatus.ASSENTE,
-        'al': RegistroStatus.ASSENTE,
-        'ap': RegistroStatus.ASSENTE,
-    }
-
-    def status_from_str(self, status: str) -> int:
-        try:
-            return Registro.status_str[status]
-        except KeyError:
-            return 0
 
     def get_day_status(self, date: Registro.Date) -> int:
         # Select the specified date
@@ -274,7 +261,7 @@ class Registro(Finestra):
         # Get the status from the date
         status: WebElement = self.driver.find_element(By.XPATH, paths.status_p)
         status_: str = status.text
-        return self.status_from_str(status_.lower())
+        return RegistroStatus.from_upper_str(status_)
 
     def get_status(self, date: Registro.Date, hour: int=0) -> int:
         # Select the specified date
@@ -296,4 +283,4 @@ class Registro(Finestra):
             mainrow: WebElement = self.driver.find_element(By.XPATH, paths.lezioni_mainrow)
             td: WebElement = mainrow.find_elements(By.TAG_NAME, "td")[x+8]
             div: WebElement = td.find_elements(By.TAG_NAME, "div")[1]
-            return RegistroStatus.from_str(div.text)
+            return RegistroStatus.from_lower_str(div.text)
