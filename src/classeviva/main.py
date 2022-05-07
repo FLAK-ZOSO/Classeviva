@@ -1,12 +1,12 @@
 from __future__ import annotations
 from datetime import datetime
-from paths import paths
+from .paths import paths
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.common.exceptions import WebDriverException
-from variables.variables import *
+from .variables.variables import *
 
 
 class User:
