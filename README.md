@@ -2,7 +2,7 @@
 Slow `API` for `Classeviva` by `GruppoSpaggiariParma`
 
 # Download
-`Classeviva` isn available on [`PyPI`](https://pypi.org/project/classevivaAPI/)
+`Classeviva` is available on [`PyPI`](https://pypi.org/project/classevivaAPI/)
 
 ```cmd
 $ python -m pip install classevivaAPI
@@ -58,4 +58,4 @@ SABATO 31 GENNAIO 2022
 1.0
 ```
 
-The whole run should take around `9.8s`.
+The whole run should take around `21s`.
