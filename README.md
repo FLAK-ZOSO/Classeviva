@@ -8,15 +8,6 @@ Slow `API` for `Classeviva` by `GruppoSpaggiariParma`
 $ python -m pip install classevivaAPI
 ```
 
-# Tree
-```
-YourProject/
-            ├── YourFile.py
-            ├── paths.py
-            ├── variables.py
-            └── main.py
-```
-
 # Usage
 Your `YourFile.py` could be written as follows:
 

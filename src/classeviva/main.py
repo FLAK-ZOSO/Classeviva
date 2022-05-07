@@ -1,6 +1,6 @@
 from __future__ import annotations
 from datetime import datetime
-from . import paths
+import paths
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
