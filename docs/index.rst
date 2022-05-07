@@ -17,7 +17,7 @@ Iniziare
 La prima volta che usi ClassevivaAPI? Inizia da qui!
 
 - **Primi passi:** :doc:`intro`
-- **Esempi:** Un esempio si trova nel :resource:`README <README.md>`, altri sono in :doc:`esempi`
+- **Esempi:** Un esempio si trova nel :xref:`README <README.md>`, altri sono in :doc:`esempi`
 
 Aiuto
 --------------
