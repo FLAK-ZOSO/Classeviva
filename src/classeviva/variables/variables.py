@@ -2,9 +2,24 @@ class Roles:
     '''
     Class to define the roles of the users
     '''
-    STUDENT = 0
-    PARENT = 1
-    TEACHER = 2
+    STUDENTE: int = 0
+    GENITORE: int = 1
+    INSEGNANTE: int = 2
+
+    letter_roles = {
+        'S': STUDENTE,
+        'G': GENITORE,
+        'V': INSEGNANTE
+    }
+
+    @classmethod
+    def from_username(cls, username: str) -> int:
+        try:
+            return cls.letter_roles[username[0]]
+        except KeyError:
+            # If login was made by email and not by username...
+            # ...we assume that the user is a student
+            return cls.STUDENTE
 
 
 class NoteSortBy:
