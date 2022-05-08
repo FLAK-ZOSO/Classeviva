@@ -7,7 +7,7 @@ Importazioni
 
 Sessione
 ==============
-L'username deve obbligatoriamente essere sottoforma di codice (es. S8733890I, G8733890I, Vils001).
+L'username deve obbligatoriamente essere sottoforma di codice (es. S8733890I, G8733890I, Vils001), e mai sottoforma di indirizzo email.
 
 .. codeblock:: python
     if __name__ == "__main__":
