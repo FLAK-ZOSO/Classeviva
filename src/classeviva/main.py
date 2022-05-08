@@ -2,6 +2,7 @@ from __future__ import annotations
 from datetime import datetime
 from .paths import paths
 from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.remote.webelement import WebElement
@@ -179,7 +180,7 @@ class Note(Finestra):
         counter += len(self.driver.find_elements(By.XPATH, paths.nota_trs))
         return counter
 
-    def get_notes(self, sort: int=NoteSortBy.AUTHOR, teacher: bool=True, date: bool=True, type_: bool=True) -> list[tuple[str, str, str, str] | tuple[str, str, str] | tuple[str, str] | tuple[str]]:
+    def get_notes(self, sort: int=NoteSortBy.AUTHOR, read: bool=False, teacher: bool=True, date: bool=True, type_: bool=True) -> list[tuple[str, str, str, str] | tuple[str, str, str] | tuple[str, str] | tuple[str]]:
         if (self.driver.current_url != paths.note_url):
             self.driver.get(paths.note_url)
         # Select the specified sorting
@@ -190,6 +191,13 @@ class Note(Finestra):
         for tr in self.driver.find_elements(By.XPATH, paths.nota_trs):
             tds: list[WebElement] = tr.find_elements(By.TAG_NAME, "td")
             res = [tds[2].text]
+            if (read):
+                if (tds[2].text.lower().strip() == "leggi"): # If the note is unread...
+                    actions: ActionChains = ActionChains(self.driver)
+                    actions.move_to_element(tds[2])
+                    actions.click() # Click over the element to read the note
+                    actions.perform()
+                    res[0] = tds[2].text # Update the title
             if (teacher):
                 res.append(tds[0].text)
             if (date):
@@ -198,6 +206,9 @@ class Note(Finestra):
                 res.append(tds[3].text)
             result.append(tuple(res))
         return result
+
+    def read_notes(self) -> None:
+        ...
 
 
 class Registro(Finestra):
