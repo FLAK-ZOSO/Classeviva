@@ -8,6 +8,9 @@ Slow `API` for `Classeviva` by `GruppoSpaggiariParma`
 $ python -m pip install classevivaAPI
 ```
 
+# Documentation
+You can find the italian documentation on [`ReadTheDocs.io`](https://classeviva.readthedocs.io)
+
 # Usage
 Your `YourFile.py` could be written as follows:
 
