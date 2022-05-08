@@ -10,11 +10,11 @@ from .variables.variables import *
 
 
 class User:
-    def __init__(self, name: str, password: str, session: Session, role=Roles.STUDENT) -> None:
+    def __init__(self, name: str, password: str, session: Session) -> None:
         self.name = name
         self.password = password
         self.session = session
-        self.role = role
+        self.role = Roles.from_username(name)
 
     @property
     def schoolpass(self) -> int:
@@ -28,8 +28,8 @@ class User:
 
 
 class Session:
-    def __init__(self, user: str, password: str, chromedriver_path: str=r"C:\Chromedriver\chromedriver.exe", role: str=Roles.STUDENT, hidden: bool=False) -> None:
-        self.user = User(user, password, self, role)
+    def __init__(self, user: str, password: str, chromedriver_path: str=r"C:\Chromedriver\chromedriver.exe", hidden: bool=False) -> None:
+        self.user = User(user, password, self)
         try:
             chrome_options = Options()
             if (hidden):
