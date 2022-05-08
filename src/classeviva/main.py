@@ -113,7 +113,8 @@ class Valutazioni(Finestra):
                 last_subject = tr.find_element(By.TAG_NAME, "td").text
             else:
                 tds: list[WebElement] = tr.find_elements(By.TAG_NAME, "td")
-                mark: str = tds[2].find_elements(By.TAG_NAME, "div")[0].find_element(By.TAG_NAME, "p").text
+                td: WebElement = tds[2].find_elements(By.TAG_NAME, "div")[0]
+                mark: str = td.find_element(By.TAG_NAME, "p").text
                 if (not (any(sym in mark for sym in {'+', '-'}) or mark == 'g')):
                     mark = float(mark.replace('½', '.5'))
                 res = [last_subject, mark]
@@ -142,7 +143,8 @@ class Valutazioni(Finestra):
                 last_subject = tr.find_element(By.TAG_NAME, "td").text
                 result[last_subject] = []
             else:
-                mark: str = tds[2].find_elements(By.TAG_NAME, "div")[0].find_element(By.TAG_NAME, "p").text
+                td: WebElement = tds[2].find_elements(By.TAG_NAME, "div")[0]
+                mark: str = td.find_element(By.TAG_NAME, "p").text
                 if (not (any(sym in mark for sym in {'+', '-'}) or mark == 'g')):
                     mark = float(mark.replace('½', '.5'))
                 res = [last_subject, mark]
