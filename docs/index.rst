@@ -29,6 +29,6 @@ Se stai avendo problemi con qualcosa, questo potrebbe tornarti utile.
 Manuali
 ---------
 
-Queste risorse riassumono ciò che l'API può fare.
+Queste risorse riassumono ciò che l'`API <https://classeviva.readthedocs.io/it/latest/api>`_ può fare.
 
 .. image:: https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png
