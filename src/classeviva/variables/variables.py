@@ -8,8 +8,7 @@ class Roles:
 
     letter_roles = {
         'S': STUDENTE,
-        'G': GENITORE,
-        'V': INSEGNANTE
+        'G': GENITORE
     }
 
     @classmethod
@@ -17,9 +16,9 @@ class Roles:
         try:
             return cls.letter_roles[username[0]]
         except KeyError:
-            # If login was made by email and not by username...
-            # ...we assume that the user is a student
-            return cls.STUDENTE
+            # If username begins with the school's code...
+            # ...we assume that the user is a teacher
+            return cls.INSEGNANTE
 
 
 class NoteSortBy:
