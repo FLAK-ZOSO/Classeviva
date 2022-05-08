@@ -15,8 +15,8 @@ Iniziare
 
 La prima volta che usi ClassevivaAPI? Inizia da qui!
 
-- **Primi passi:** `intro <https://classeviva.readthedocs.io/it/v0.2.0/intro>`_
-- **Esempi:** Un esempio si trova nel `README <https://github.com/Lioydiano/Classeviva/tree/v0.2.0/README.md>`_, altri sono in una `pagina di esempi <https://classeviva.readthedocs.io/it/v0.2.0/esempi.rst>`_
+- **Primi passi:** `intro <https://classeviva.readthedocs.io/it/latest/intro>`_
+- **Esempi:** Un esempio si trova nel `README <https://github.com/Lioydiano/Classeviva/README.md>`_, altri sono in una `pagina di esempi <https://classeviva.readthedocs.io/it/latest/esempi.rst>`_
 
 Aiuto
 --------------
