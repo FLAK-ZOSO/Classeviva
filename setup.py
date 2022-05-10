@@ -15,7 +15,7 @@ setuptools.setup(
         'classeviva.paths': 'src/classeviva/paths',
         'classeviva.variables': 'src/classeviva/variables',
     },
-    version='0.2.1.post0',
+    version='0.2.2a1.dev0',
     requires=["selenium"],
     description='Classeviva Python API',
     long_description=open('README.md').read(),
@@ -23,7 +23,7 @@ setuptools.setup(
     author='FLAK-ZOSO',
     author_email='mattia.marchese.2006@gmail.com',
     url='https://github.com/Lioydiano/Classeviva',
-    download_url='https://github.com/Lioydiano/Classeviva/archive/refs/tags/v0.2.1.post0.tar.gz',
+    download_url='https://github.com/Lioydiano/Classeviva/archive/refs/tags/v0.2.2a1.dev0.tar.gz',
     keywords=['classeviva', 'school', 'api'],
     classifiers=[
         "Programming Language :: Python :: 3",
