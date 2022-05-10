@@ -155,7 +155,8 @@ class Valutazioni(Finestra):
                 if (type_):
                     res.append(tds[3].find_element(By.TAG_NAME, "p").get_attribute("title"))
                 if (notes):
-                    res.append(tds[5].find_element(By.TAG_NAME, "div").find_element(By.TAG_NAME, "span").text)
+                    td_: WebElement = tds[5].find_element(By.TAG_NAME, "div")
+                    res.append(td_.find_element(By.TAG_NAME, "span").text)
                 result[last_subject].append(tuple(res))
         return result
 
