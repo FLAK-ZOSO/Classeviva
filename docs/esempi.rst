@@ -1,7 +1,7 @@
 Importazioni
 ===============
 
-.. codeblock:: python
+.. code-block:: python
 
     from classeviva import Session, Valutazioni, Note, Registro
     from classeviva.variables import NoteSortBy
@@ -10,7 +10,7 @@ Sessione
 ==============
 L'username deve obbligatoriamente essere sottoforma di codice (es. ``S8733890I``, ``G8733890I``), e mai sottoforma di indirizzo email.
 
-.. codeblock:: python
+.. code-block:: python
 
     if __name__ == "__main__":
         s = Session("<my-username>", "<my-password>", hidden=False)
@@ -54,6 +54,7 @@ Il seguente programma riassume le principali funzionalità di ``ClassevivaAPI``.
 Alla versione ``0.2.2`` il risultato del programma in esempio eseguito con le credenziali dell'utenza di esempio è il seguente.
 
 .. code-block:: python
+
     DevTools listening on ws://127.0.0.1:63746/devtools/browser/25500ad4-68de-4f15-b52a-08068382f340
     User: <my-username> | <my-password> | 58733881
     Time-left: 3598s
