@@ -169,7 +169,7 @@ Proprietà
 Metodi
 
     ``.get_valutations_marks()`` fornisce le valutazioni dell'anno scolastico corrente.
-    Le ritorna sottoforma di ``list``a di ``float`` e ``str``inghe. [6]_
+    Le ritorna sottoforma di ``list`` di ``float`` e ``str``. [6]_
 
     Parametri:
 
@@ -185,7 +185,7 @@ Metodi
 
 
     ``.get_valutations()`` fornisce le valutazioni dell'anno scolastico corrente con le informazioni sui voti.
-    Le ritorna sottoforma di ``list``a di ``tuple``, che contengono la data, il tipo ("orale", "scritto" o "pratico"), la descrizione, il voto e la materia.
+    Le ritorna sottoforma di ``list`` di ``tuple``, che contengono la data, il tipo ("orale", "scritto" o "pratico"), la descrizione, il voto e la materia.
 
     Parametri:
 
@@ -226,5 +226,5 @@ Note
 .. [3] Dalla classe ``classeviva.variables.variables.Roles``
 .. [4] Ereditato dall'omonimo attributo della classe ``Session``
 .. [5] Ereditato dall'omonimo attributo della classe ``Finestra``
-.. [6] Le ``str``inghe non vengono restituite a meno di un errore di conversione a ``float``
-.. [7] Il tipo di voto è una ``str``inga, che può essere "orale", "scritto" o "pratico"
+.. [6] Le ``str`` non vengono restituite a meno di un errore di conversione a ``float``
+.. [7] Il tipo di voto è una ``str``, che può essere "orale", "scritto" o "pratico"
