@@ -157,3 +157,4 @@ cython_debug/
 .github/
 .gitignore
 test.py
+.vscode/settings.json
