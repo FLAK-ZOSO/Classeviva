@@ -13,6 +13,10 @@ Intro
 ===========================
 Classeviva è il modulo che contiene le classi per la comunicazione con il sito di Classeviva.
 
+Segue l'elenco delle classi pubbliche del modulo classeviva:
+
+- `Session <#session>`_: classe che rappresenta una sessione di comunicazione con il sito di Classeviva
+- `User <#user>`_: classe che rappresenta un utente di Classeviva
 
 ``Session``
 ---------------------------
