@@ -15,7 +15,7 @@ Iniziare
 
 La prima volta che usi ClassevivaAPI? Inizia da qui!
 
-- **Primi passi:** `intro <https://classeviva.readthedocs.io/it/latest/intro.html>`_
+- **Primi passi:** `intro <intro.html>`_
 - **Esempi:** Un esempio si trova nel `README <https://github.com/Lioydiano/Classeviva/README.md>`_, altri sono in una `pagina di esempi <https://classeviva.readthedocs.io/it/latest/esempi.html>`_
 
 Aiuto
@@ -29,6 +29,6 @@ Se stai avendo problemi con qualcosa, questo potrebbe tornarti utile.
 Manuali
 ---------
 
-Queste risorse riassumono ciò che l'`API <https://classeviva.readthedocs.io/it/latest/api>`_ può fare.
+Queste risorse riassumono ciò che l'`API <api.html>`_ può fare.
 
 .. image:: https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png

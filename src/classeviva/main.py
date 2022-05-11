@@ -41,7 +41,7 @@ class Session:
         except WebDriverException:
             print("ChromeDriver not found. Please download it from https://chromedriver.chromium.org/downloads")
 
-    def login(self) -> bool:
+    def login(self) -> None:
         self.driver.get(paths.login_url)
         self.driver.find_element(By.XPATH, paths.code_input).send_keys(self.user.name)
         self.driver.find_element(By.XPATH, paths.password_input).send_keys(self.user.password)
